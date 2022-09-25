@@ -17,11 +17,15 @@ func main() {
 
 	url := "https://world.openfoodfacts.org/api/v0/product/737628064502.json"
 
-	req, _ := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, nil)
 
 	//req.Header.Add("X-API-Key", "XXX")
 
 	res, _ := http.DefaultClient.Do(req)
+	if err != nil {
+
+		fmt.Println(err)
+	}
 
 	defer res.Body.Close()
 	body, _ := ioutil.ReadAll(res.Body)
