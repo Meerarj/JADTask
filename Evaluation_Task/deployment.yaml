@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restapplicationwithdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: restapplicationwithdb
+  template: 
+    metadata:
+      labels:
+        app.kubernetes.io/name: restapplicationwithdb
+    spec:
+      containers:
+        - name: restappwithdb
+          image: docker.io/meeradevi/restapiwithdbconnection_restapi:latest
+
+          env:
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: DB_HOST
+          - name: DB_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: DB_USERNAME
+          - name: DB_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: DB_PASSWORD
+          - name: DB_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: DB_NAME
+          ports:
+          - containerPort: 8000     
