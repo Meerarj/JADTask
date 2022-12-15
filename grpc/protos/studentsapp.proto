@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "studentsapp.com/grpc/protos";
+package studentdetails;
+service Student {
+	rpc GetStudents (Empty) returns (stream StudentInfo);
+	rpc GetStudentBySection (Section) returns (StudentInfo);
+    rpc GetStudentByClass (Class) returns (StudentInfo) ;
+	
+	rpc CreateStudent(StudentInfo) returns (Id);
+	rpc UpdateStudent (StudentInfo) returns (Status);
+	rpc DeleteStudent(Id) returns (Status);
+	
+}
+
+message StudentInfo {
+	string id = 1;
+	int32 rollno = 2;
+	string name = 3;
+	int32 class = 4;
+	string section = 5;
+    repeated string hobbies = 6;
+}
+message Empty {}
+
+message Id {
+    string value = 1;
+    
+}
+message RollNo{
+	int32 value = 1;
+}
+message Name{
+	string value =1;
+}
+message Class{
+    int32 value =1;
+}
+message Section{
+	string value = 1;
+}
+
+message Status {
+	int32 value = 1; 
+}
